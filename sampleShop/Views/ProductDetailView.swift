@@ -7,11 +7,28 @@ struct ProductDetailView: View {
 
     var body: some View {
         VStack(spacing: 16) {
-            Image(systemName: "photo")
-                .resizable()
-                .frame(width: 150, height: 150)
-                .cornerRadius(12)
-                .padding(.top, 40)
+            AsyncImage(url: URL(string: product.thumbnail)) { phase in
+                switch phase {
+                case .empty:
+                    ProgressView()
+                        .frame(width: 200, height: 200)
+                case .success(let image):
+                    image
+                        .resizable()
+                        .scaledToFit()
+                        .frame(maxWidth: 300, maxHeight: 300)
+                        .cornerRadius(12)
+                case .failure:
+                    Image(systemName: "photo")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 200, height: 200)
+                        .foregroundColor(.gray)
+                @unknown default:
+                    EmptyView()
+                }
+            }
+            .padding(.top, 40)
 
             Text(product.title)
                 .font(.title)
