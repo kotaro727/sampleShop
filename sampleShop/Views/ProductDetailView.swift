@@ -2,6 +2,7 @@ import SwiftUI
 
 struct ProductDetailView: View {
     let product: Product
+    @EnvironmentObject var cart: Cart // 共有Cartを受け取る
 
     var body: some View {
         VStack(spacing: 16) {
@@ -19,6 +20,19 @@ struct ProductDetailView: View {
                 .font(.title2)
                 .foregroundColor(.gray)
 
+            Button(action: {
+                cart.add(product)
+            }) {
+                Text("カートに追加")
+                    .font(.headline)
+                    .frame(maxWidth: .infinity)
+                    .padding()
+                    .background(Color.blue)
+                    .foregroundColor(.white)
+                    .cornerRadius(10)
+            }
+            .padding(.top, 30)    
+
             Spacer()
         }
         .navigationTitle("商品詳細")
@@ -29,4 +43,5 @@ struct ProductDetailView: View {
 
 #Preview {
     ProductDetailView(product: sampleProducts[0])
+        .environmentObject(Cart()) // 共有Cartを設定
 }
