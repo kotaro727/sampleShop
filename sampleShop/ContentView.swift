@@ -11,21 +11,23 @@ struct ContentView: View {
     var body: some View {
         NavigationStack {
             List(sampleProducts) { product in
-                HStack {
-                    Image(systemName: "photo") // 仮の画像
-                        .resizable()
-                        .frame(width: 60, height: 60)
-                        .cornerRadius(8)
-                        .padding(.trailing, 8)
-                    VStack(alignment: .leading) {
-                        Text(product.name)
-                            .font(.headline)
-                        Text("¥\(product.price)")
-                            .font(.subheadline)
-                            .foregroundColor(.gray)
+                NavigationLink(destination: ProductDetailView(product: product)) {
+                    HStack {
+                        Image(systemName: "photo")
+                            .resizable()
+                            .frame(width: 60, height: 60)
+                            .cornerRadius(8)
+                            .padding(.trailing, 8)
+                        VStack(alignment: .leading) {
+                            Text(product.name)
+                                .font(.headline)
+                            Text("¥\(product.price)")
+                                .font(.subheadline)
+                                .foregroundColor(.gray)
+                        }
                     }
+                    .padding(.vertical, 4)
                 }
-                .padding(.vertical, 4)
             }
             .navigationTitle("商品一覧")
         }
@@ -35,4 +37,3 @@ struct ContentView: View {
 #Preview {
     ContentView()
 }
-
