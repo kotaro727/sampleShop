@@ -20,7 +20,7 @@ struct CartView: View {
                         VStack(alignment: .leading) {
                             Text(product.title)
                                 .font(.headline)
-                            Text("¥\(product.price)")
+                            Text("¥\(String(format: "%.0f", product.price))")
                                 .font(.subheadline)
                                 .foregroundColor(.gray)
                         }

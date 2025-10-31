@@ -17,7 +17,7 @@ struct ProductDetailView: View {
                 .font(.title)
                 .bold()
 
-            Text("¥\(product.price)")
+            Text("¥\(String(format: "%.0f", product.price))")
                 .font(.title2)
                 .foregroundColor(.gray)
 

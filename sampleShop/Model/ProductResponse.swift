@@ -7,6 +7,6 @@ struct ProductResponse: Decodable {
 struct Product: Identifiable, Decodable {
     let id: Int
     let title: String
-    let price: Int
+    let price: Double
     let thumbnail: String
 }
