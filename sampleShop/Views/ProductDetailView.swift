@@ -1,4 +1,5 @@
 import SwiftUI
+import Foundation
 
 struct ProductDetailView: View {
     let product: Product
@@ -12,7 +13,7 @@ struct ProductDetailView: View {
                 .cornerRadius(12)
                 .padding(.top, 40)
 
-            Text(product.name)
+            Text(product.title)
                 .font(.title)
                 .bold()
 
@@ -42,6 +43,6 @@ struct ProductDetailView: View {
 }
 
 #Preview {
-    ProductDetailView(product: sampleProducts[0])
+    ProductDetailView(product: Product(id: 1, title: "サンプル商品", price: 1000, thumbnail: ""))
         .environmentObject(Cart()) // 共有Cartを設定
 }

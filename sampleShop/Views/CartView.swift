@@ -1,4 +1,5 @@
 import SwiftUI
+import Foundation
 
 struct CartView: View {
     @EnvironmentObject var cart: Cart
@@ -17,7 +18,7 @@ struct CartView: View {
                             .cornerRadius(8)
                             .padding(.trailing, 8)
                         VStack(alignment: .leading) {
-                            Text(product.name)
+                            Text(product.title)
                                 .font(.headline)
                             Text("¥\(product.price)")
                                 .font(.subheadline)
