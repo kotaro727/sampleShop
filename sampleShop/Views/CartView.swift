@@ -1,22 +1,19 @@
-//
-//  ContentView.swift
-//  sampleShop
-//
-//  Created by 鈴木光太郎 on 2025/10/30.
-//
-
 import SwiftUI
 
-struct ContentView: View {
+struct CartView: View {
     @EnvironmentObject var cart: Cart
+
     var body: some View {
-        NavigationStack {
-            List(sampleProducts) { product in
-                NavigationLink(destination: ProductDetailView(product: product)) {
+        List {
+            if cart.items.isEmpty {
+                Text("カートは空です 🛒")
+                    .foregroundColor(.gray)
+            } else {
+                ForEach(cart.items) { product in
                     HStack {
                         Image(systemName: "photo")
                             .resizable()
-                            .frame(width: 60, height: 60)
+                            .frame(width: 50, height: 50)
                             .cornerRadius(8)
                             .padding(.trailing, 8)
                         VStack(alignment: .leading) {
@@ -27,23 +24,14 @@ struct ContentView: View {
                                 .foregroundColor(.gray)
                         }
                     }
-                    .padding(.vertical, 4)
-                }
-            }
-            .navigationTitle("商品一覧")
-            .toolbar {
-                NavigationLink(destination: CartView()) {
-                    HStack {
-                        Image(systemName: "cart")
-                        Text("\(cart.items.count)")
-                    }
                 }
             }
         }
+        .navigationTitle("カート")
     }
 }
 
 #Preview {
-    ContentView()
+    CartView()
         .environmentObject(Cart())
 }
