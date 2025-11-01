@@ -1,10 +1,10 @@
 import Foundation
 
-struct ProductResponse: Decodable {
+struct ProductResponse: Codable {
     let products: [Product]
 }
 
-struct Product: Identifiable, Decodable {
+struct Product: Identifiable, Codable {
     let id: Int
     let title: String
     let price: Double
