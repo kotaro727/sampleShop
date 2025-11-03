@@ -3,14 +3,18 @@ import Foundation
 class Cart: ObservableObject {
     @Published var items: [Product] = [] {
         didSet {
-            saveItems()
+            storage.save(items)
         }
     }
 
-    private let storageKey = "cart_items"
+    private let storage: CartStorageProtocol
 
-    init() {
-        loadItems()
+    // Dependency Injection
+    // デフォルト引数でUserDefaultsを使用（本番環境）
+    // テスト時は別のストレージを注入可能
+    init(storage: CartStorageProtocol = UserDefaultsCartStorage()) {
+        self.storage = storage
+        self.items = storage.load()
     }
 
     func add(_ product: Product) {
@@ -19,24 +23,5 @@ class Cart: ObservableObject {
 
     func remove(_ product: Product) {
         items.removeAll { $0.id == product.id }
-    }
-
-    private func saveItems() {
-        do {
-            let data = try JSONEncoder().encode(items)
-            UserDefaults.standard.set(data, forKey: storageKey)
-            print("保存成功:", items)
-        } catch {
-            print("保存失敗:", error)
-        }
-    }
-
-    private func loadItems() {
-        guard let data = UserDefaults.standard.data(forKey: storageKey) else { return }
-        do {
-            items = try JSONDecoder().decode([Product].self, from: data)
-        } catch {
-            print("読み込み失敗:", error)
-        }
     }
 }
